@@ -1,19 +1,57 @@
+/* General page styling */
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #f9f9f9;
-  color: #333;
-  padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 20px;
 }
 
-h1, h2, h3 {
-  color: #2c3e50;
+/* Headings */
+h1 {
+    color: #2c3e50;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+h2 {
+    color: #34495e;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+h3 {
+    color: #4a4a4a;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
-ul {
-  margin-bottom: 20px;
+/* Lists */
+ul, ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
 }
-
 li {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+/* Highlight key items */
+strong {
+    color: #e74c3c;
+}
+
+/* Optional: Add a subtle box around each checklist section */
+section {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Links styling */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }
