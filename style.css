@@ -17,11 +17,14 @@ h2 {
     color: #34495e;
     margin-top: 20px;
     margin-bottom: 8px;
+    cursor: pointer; /* indicates clickable */
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
 }
-h3 {
-    color: #4a4a4a;
-    margin-top: 15px;
-    margin-bottom: 5px;
+h2:hover {
+    background-color: #45a049;
 }
 
 /* Lists */
@@ -38,13 +41,19 @@ strong {
     color: #e74c3c;
 }
 
-/* Optional: Add a subtle box around each checklist section */
-section {
+/* Collapsible sections */
+.section {
+    display: none; /* hidden initially for toggle */
     background-color: #ffffff;
     padding: 15px 20px;
     margin-bottom: 15px;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Checkbox styling */
+.checkbox-item {
+    margin: 5px 0;
 }
 
 /* Links styling */
@@ -55,15 +64,3 @@ a {
 a:hover {
     text-decoration: underline;
 }
-/* Sections for collapsible checklist */
-.section {
-    display: none; /* important for toggle to work */
-    background-color: #ffffff;
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-
-
