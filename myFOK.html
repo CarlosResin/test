@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Winthrop QA Procedures Checklist</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    h2 {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .section {
+        padding: 10px 20px;
+        border-left: 3px solid #4CAF50;
+        margin-bottom: 10px;
+        display: none;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+    }
+    .checkbox-item {
+        margin: 5px 0;
+    }
+</style>
+<script>
+    function toggleSection(id) {
+        const section = document.getElementById(id);
+        section.style.display = section.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
+</head>
+<body>
+
+<h1>Winthrop QA Procedures Checklist</h1>
+
+<h2 onclick="toggleSection('qmp')">QMP: Quality Management Plan</h2>
+<div class="section" id="qmp">
+    <label class="checkbox-item"><input type="checkbox"> Issued on ACC 4 weeks before works start</label><br>
+    <label class="checkbox-item"><input type="checkbox"> Winthrop QA Team informed </label>
+</div>
+
+<h2 onclick="toggleSection('itp')">ITP: Inspection & Test Plan</h2>
+<div class="section" id="itp">
+    <label class="checkbox-item"><input type="checkbox"> Issued on ACC 2 weeks before works start</label><br>
+    <label class="checkbox-item"><input type="checkbox"> Includes FOK (First of a Kind) inspection</label>
+</div>
+
+<h2 onclick="toggleSection('tbt')">TBT: Toolbox Talk</h2>
+<div class="section" id="tbt">
+    <label class="checkbox-item"><input type="checkbox"> Conducted before FOK works start </label><br>
+    <label class="checkbox-item"><input type="checkbox"> Attendance sheet uploaded to ACC </label>
+</div>
+
+<h2 onclick="toggleSection('prefok')">Pre-FOK Requirements</h2>
+<div class="section" id="prefok">
+    <label class="checkbox-item"><input type="checkbox"> FOK description shared on ACC</label><br>
+    <label class="checkbox-item"><input type="checkbox"> All DWG drawings approved via ACC</label><br>
+    <label class="checkbox-item"><input type="checkbox"> All Technical Submittals approved via ACC</label><br>
+    <label class="checkbox-item"><input type="checkbox"> Any tests completed and recorded on ACC</label><br>
+    <label class="checkbox-item"><input type="checkbox"> Checksheets completed and available on ACC</label><br>
+    <label class="checkbox-item"><input type="checkbox"> RFIs closed and attached</label><br>
+    <label class="checkbox-item"><input type="checkbox"> Factory/delivery quality issues addressed</label>
+</div>
+
+<h2 onclick="toggleSection('fok')">FOK: First of a Kind Inspection</h2>
+<div class="section" id="fok">
+    <label class="checkbox-item"><input type="checkbox"> Ready for presentaion at agreed time on day works start</label><br>
+    <label class="checkbox-item"><input type="checkbox"> Requires Project Managers Attendance</label><br>
+    <label class="checkbox-item"><input type="checkbox"> AECOM is Only signing off starting works describled</label>
+</div>
+
+<h2 onclick="toggleSection('subfok')">Subsequent FOKs</h2>
+<div class="section" id="subfok">
+    <label class="checkbox-item"><input type="checkbox"> Review of missing items coverage from earlier stage</label><br>
+    <label class="checkbox-item"><input type="checkbox"> Follow up email recording completion or next steps</label>
+</div>
+
+</body>
+</html>
