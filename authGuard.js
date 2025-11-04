@@ -3,6 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebas
 import { 
   getAuth, 
   onAuthStateChanged, 
+  signOut, 
   setPersistence, 
   browserSessionPersistence 
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
@@ -21,23 +22,35 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Make auth only last for the current browser session
-setPersistence(auth, browserSessionPersistence)
-  .then(() => {
-    console.log("✅ Auth persistence set to session-only.");
-  })
-  .catch((error) => {
-    console.error("⚠️ Error setting session persistence:", error);
-  });
+// Set session-based persistence (logout when tab closes)
+setPersistence(auth, browserSessionPersistence).catch((error) => {
+  console.error("Error setting session persistence:", error);
+});
 
 // Protect the page
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    alert("You must be logged in to access this page!");
-    window.location.href = "index.html"; // redirect to login page
-  } else {
-    console.log("✅ User authenticated:", user.email);
+    alert("⚠️ You must be logged in to access this page!");
+    window.location.href = "index.html";
   }
 });
+
+// Global logout handler
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth)
+        .then(() => {
+          alert("✅ Logged out successfully!");
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          alert("⚠️ Error logging out: " + error.message);
+        });
+    });
+  }
+});
+
 
 
