@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Home - Winthrop QA</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Home - Winthrop QA</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- At the very top of body -->
-<script type="module" src="authGuard.js"></script>
+  <!-- Load protection + logout logic -->
+  <script type="module" src="authGuard.js"></script>
 
-<h1>Welcome to the Winthrop QA Portal</h1>
+  <h1>Welcome to the Winthrop QA Portal</h1>
+  <p>Select an option below:</p>
 
-<p>Select an option below:</p>
+  <!-- Link to checklist -->
+  <button onclick="window.location.href='checklist.html'">Open QA Checklist</button>
 
-<!-- Link to checklist -->
-<button onclick="window.location.href='checklist.html'">Open QA Checklist</button>
-
-<!-- Optional: Log out (back to login page) -->
-<button onclick="window.location.href='index.html'">Logout</button>
+  <!-- Logout handled by authGuard.js -->
+  <button id="logoutBtn">Logout</button>
 </body>
 </html>
+
+</html>
+
 
 
 
