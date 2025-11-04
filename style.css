@@ -49,9 +49,65 @@ h2:hover {
 .checkbox-item {
     margin: 5px 0;
 }
+
+/* Password requirements */
 .password-requirements {
-  font-size: 0.9em;
-  color: #555;
+    font-size: 0.9em;
+    color: #555;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 5px;
 }
+
+/* Password validation feedback */
+.password-requirements li.valid::before {
+    content: "✅ ";
+    color: #2ecc71;
+}
+.password-requirements li.invalid::before {
+    content: "❌ ";
+    color: #e74c3c;
+}
+
+/* Live email feedback */
+#emailFeedback {
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Form buttons */
+button {
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #45a049;
+}
+
+/* Inputs */
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Small text */
+small {
+    font-size: 0.85em;
+    color: #555;
+}
+
+
 
 
