@@ -12,23 +12,33 @@
 
 <form id="loginForm">
   <label for="email">Email:</label><br>
-  <input type="email" id="email" name="email" placeholder="you@example.com" required><br><br>
+  <input type="email" id="email" name="email" placeholder="you@example.com" required>
+  <span id="emailFeedback"></span><br>
 
   <label for="password">Password:</label><br>
-  <input type="password" id="password" name="password" placeholder="Enter password" required><br><br>
-  <small class="password-requirements">
-    Your password must be at least 6 characters long, include at least one uppercase letter, and at least one number.
-  </small><br><br>
+  <input type="password" id="password" name="password" placeholder="Enter password" required><br>
 
-<button type="button" id="loginBtn">Login</button>
-<button type="button" id="signupBtn">Sign Up</button>
+  <ul class="password-requirements">
+    <li id="lengthReq" class="invalid">At least 6 characters</li>
+    <li id="uppercaseReq" class="invalid">At least 1 uppercase letter</li>
+    <li id="numberReq" class="invalid">At least 1 number</li>
+  </ul><br>
+
+  <button type="button" id="loginBtn">Login</button>
+  <button type="button" id="signupBtn">Sign Up</button>
 </form>
 
-<!-- Firebase SDKs --> <!-- Link your external JS -->
-</script>
+<h2>Sample Collapsible Section</h2>
+<div class="section">
+  <p>This is a sample section that can be expanded or collapsed by clicking the header.</p>
+</div>
+
+<!-- Include your external JS -->
 <script type="module" src="script.js"></script>
+
 </body>
 </html>
+
 
 
 
