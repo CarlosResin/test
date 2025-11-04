@@ -83,6 +83,9 @@ window.loginUser = async (event) => {
     alert("❌ " + error.message);
   }
 };
+// After defining signupUser and loginUser functions
+document.getElementById("signupBtn").addEventListener("click", signupUser);
+document.getElementById("loginBtn").addEventListener("click", loginUser);
 
 
 
