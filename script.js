@@ -1,21 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Header toggle
-  const headers = document.querySelectorAll("h2");
-  headers.forEach(header => {
-    header.addEventListener("click", function() {
-      const section = this.nextElementSibling;
-      if (section && section.classList.contains("section")) {
-        section.style.display = section.style.display === "block" ? "none" : "block";
-      }
-    });
-  });
-
-  // Auth buttons
-  document.getElementById("signupBtn").addEventListener("click", signupUser);
-  document.getElementById("loginBtn").addEventListener("click", loginUser);
-});
-
-// script.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
@@ -33,36 +15,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// DOMContentLoaded code for headers
-document.addEventListener("DOMContentLoaded", function() {
-  const headers = document.querySelectorAll("h2");
-  headers.forEach(header => {
-    header.addEventListener("click", function() {
-      const section = this.nextElementSibling;
-      if (section && section.classList.contains("section")) {
-        section.style.display = section.style.display === "block" ? "none" : "block";
-      }
-    });
-  });
-});
-
-// Signup function with password validation
-window.signupUser = async (event) => {
+// Signup function
+export const signupUser = async (event) => {
   event.preventDefault();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  // Password validation
-  if (password.length < 6) {
-    alert("❌ Password must be at least 6 characters long.");
-    return;
-  }
-  if (!/[A-Z]/.test(password)) {
-    alert("❌ Password must include at least one uppercase letter.");
-    return;
-  }
-  if (!/[0-9]/.test(password)) {
-    alert("❌ Password must include at least one number.");
+  if (password.length < 6 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+    alert("❌ Password does not meet requirements.");
     return;
   }
 
@@ -76,10 +36,11 @@ window.signupUser = async (event) => {
 };
 
 // Login function
-window.loginUser = async (event) => {
+export const loginUser = async (event) => {
   event.preventDefault();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+
   try {
     await signInWithEmailAndPassword(auth, email, password);
     alert("✅ Login successful!");
@@ -88,6 +49,44 @@ window.loginUser = async (event) => {
     alert("❌ " + error.message);
   }
 };
+
+// Password live validation
+const passwordInput = document.getElementById("password");
+const lengthReq = document.getElementById("lengthReq");
+const uppercaseReq = document.getElementById("uppercaseReq");
+const numberReq = document.getElementById("numberReq");
+
+passwordInput.addEventListener("input", () => {
+  const value = passwordInput.value;
+  lengthReq.className = value.length >= 6 ? "valid" : "invalid";
+  uppercaseReq.className = /[A-Z]/.test(value) ? "valid" : "invalid";
+  numberReq.className = /[0-9]/.test(value) ? "valid" : "invalid";
+});
+
+// Email validation feedback
+const emailInput = document.getElementById("email");
+const emailFeedback = document.getElementById("emailFeedback");
+emailInput.addEventListener("input", () => {
+  const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  emailFeedback.textContent = emailPattern.test(emailInput.value) ? "✅ Valid email" : "❌ Invalid email";
+  emailFeedback.style.color = emailPattern.test(emailInput.value) ? "#2ecc71" : "#e74c3c";
+});
+
+// Collapsible sections + button binding
+document.addEventListener("DOMContentLoaded", () => {
+  const headers = document.querySelectorAll("h2");
+  headers.forEach(header => {
+    header.addEventListener("click", function() {
+      const section = this.nextElementSibling;
+      if (section && section.classList.contains("section")) {
+        section.classList.toggle("active");
+      }
+    });
+  });
+
+  document.getElementById("signupBtn").addEventListener("click", signupUser);
+  document.getElementById("loginBtn").addEventListener("click", loginUser);
+});
 
 
 
