@@ -49,4 +49,9 @@ h2:hover {
 .checkbox-item {
     margin: 5px 0;
 }
+.password-requirements {
+  font-size: 0.9em;
+  color: #555;
+}
+
 
