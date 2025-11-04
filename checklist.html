@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </head>
 <body>
-
+<!-- Load protection + logout logic -->
+<script type="module" src="authGuard.js"></script>
 <h1>Winthrop QA Procedures Checklist</h1>
 
 <h2>QMP: Quality Management Plan</h2>
@@ -61,7 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
     <label class="checkbox-item"><input type="checkbox"> Review of missing items coverage from earlier stage</label><br>
     <label class="checkbox-item"><input type="checkbox"> Follow up email recording completion or next steps</label>
 </div>
-
+<!-- Logout handled by authGuard.js -->
+<button id="logoutBtn">Logout</button>
 </body>
 </html>
+
 
