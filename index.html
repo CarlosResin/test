@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Login - Winthrop QA</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Login - Winthrop QA</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -22,11 +22,15 @@
 </form>
 
 <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+  import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword 
+  } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
-<script>
-  // Initialize Firebase
+  // ✅ Your Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyBYPG8EEsN_Vn13E0UALEpTbu2T2o9DVDE",
     authDomain: "winthrop-qa-portal.firebaseapp.com",
@@ -36,42 +40,24 @@
     appId: "1:440969077718:web:50591760de13c85d29ba77"
   };
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+  // ✅ Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-  // Login function
-  function loginUser(event) {
+  // ✅ Login function
+  window.loginUser = async (event) => {
     event.preventDefault();
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("✅ Login successful!");
+      window.location.href = "home.html";
+    } catch (error) {
+      alert("❌ " + error.message);
+    }
+  };
 
-    auth.signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        alert("Login successful!");
-        window.location.href = "home.html";
-      })
-      .catch((error) => {
-        alert("Error: " + error.message);
-      });
-  }
-
-  // Signup function
-  function signupUser(event) {
-    event.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        alert("Account created successfully! You can now log in.");
-      })
-      .catch((error) => {
-        alert("Error: " + error.message);
-      });
-  }
-</script>
-
-</body>
-</html>
+  // ✅ Signup
 
 
