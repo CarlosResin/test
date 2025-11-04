@@ -23,3 +23,16 @@ onAuthStateChanged(auth, (user) => {
     window.location.href = "index.html"; // redirect to login page
   }
 });
+// Make Page Expire
+import { setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+
+setPersistence(auth, browserSessionPersistence)
+  .then(() => {
+    // Only lasts for the session (tab closed = logout)
+    return signInWithEmailAndPassword(auth, email, password);
+  })
+  .catch((error) => {
+    console.error("Error setting session persistence:", error);
+  });
+
+
