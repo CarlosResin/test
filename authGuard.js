@@ -1,6 +1,11 @@
 // authGuard.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+import { 
+  getAuth, 
+  onAuthStateChanged, 
+  setPersistence, 
+  browserSessionPersistence 
+} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
 // Firebase config (same as your main config)
 const firebaseConfig = {
@@ -16,23 +21,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// Make auth only last for the current browser session
+setPersistence(auth, browserSessionPersistence)
+  .then(() => {
+    console.log("✅ Auth persistence set to session-only.");
+  })
+  .catch((error) => {
+    console.error("⚠️ Error setting session persistence:", error);
+  });
+
 // Protect the page
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     alert("You must be logged in to access this page!");
     window.location.href = "index.html"; // redirect to login page
+  } else {
+    console.log("✅ User authenticated:", user.email);
   }
 });
-// Make Page Expire
-import { setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
-
-setPersistence(auth, browserSessionPersistence)
-  .then(() => {
-    // Only lasts for the session (tab closed = logout)
-    return signInWithEmailAndPassword(auth, email, password);
-  })
-  .catch((error) => {
-    console.error("Error setting session persistence:", error);
-  });
 
 
