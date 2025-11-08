@@ -8,7 +8,7 @@ import {
   browserSessionPersistence 
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
-// Firebase config (same as your main config)
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBYPG8EEsN_Vn13E0UALEpTbu2T2o9DVDE",
   authDomain: "winthrop-qa-portal.firebaseapp.com",
@@ -22,7 +22,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Set session-based persistence (logout when tab closes)
+// Set session-based persistence
 setPersistence(auth, browserSessionPersistence).catch((error) => {
   console.error("Error setting session persistence:", error);
 });
@@ -35,22 +35,24 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// Global logout handler
-document.addEventListener("DOMContentLoaded", () => {
-  const logoutBtn = document.getElementById("logoutBtn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      signOut(auth)
-        .then(() => {
-          alert("✅ Logged out successfully!");
-          window.location.href = "index.html";
-        })
-        .catch((error) => {
-          alert("⚠️ Error logging out: " + error.message);
-        });
+// Logout function
+export const logoutUser = () => {
+  signOut(auth)
+    .then(() => {
+      alert("✅ Logged out successfully!");
+      window.location.href = "index.html";
+    })
+    .catch((error) => {
+      alert("⚠️ Error logging out: " + error.message);
     });
-  }
-});
+};
+
+// Get current logged-in user
+export const getCurrentUser = () => auth.currentUser;
+
+// Export auth if needed elsewhere
+export { auth };
+
 
 
 
