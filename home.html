@@ -2,25 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Home -  sofe </title>
+  <title>Home - sofe</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Load protection + logout logic -->
-  <script type="module" src="authGuard.js"></script>
-
+  <!-- Auth and user info handled by JS modules -->
   <h1>Welcome to the sofe Portal</h1>
-  <p>Select an option below:</p>
+  <p id="userEmail">Loading user info...</p>
 
   <!-- Link to checklist -->
-  <button onclick="window.location.href='checklist.html'">Open QA Checklist</button>
+  <button id="openChecklistBtn">Open QA Checklist</button>
 
-  <!-- Logout handled by authGuard.js -->
+  <!-- Logout -->
   <button id="logoutBtn">Logout</button>
+
+  <!-- JS Modules -->
+  <script type="module" src="./authGuard.js"></script>
+  <script type="module" src="./home.js"></script>
 </body>
 </html>
 
-</html>
 
 
 
