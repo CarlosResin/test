@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
 // Firebase config
 const firebaseConfig = {
@@ -14,6 +15,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
+
 
 // Signup function
 export const signupUser = async (event) => {
@@ -27,13 +30,34 @@ export const signupUser = async (event) => {
   }
 
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Write to Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
+      role: "normal",
+      createdAt: new Date()
+    });
+
     alert("✅ Account created successfully! Redirecting...");
     window.location.href = "home.html";
   } catch (error) {
     alert("❌ " + error.message);
   }
 };
+
+// After creating user in Authentication
+const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+const user = userCredential.user;
+
+// Add user to Firestore with default role
+await setDoc(doc(db, "users", user.uid), {
+  email: user.email,
+  role: "normal",
+  createdAt: new Date()
+});
+
 
 // Login function
 export const loginUser = async (event) => {
@@ -87,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("signupBtn").addEventListener("click", signupUser);
   document.getElementById("loginBtn").addEventListener("click", loginUser);
 });
+
 
 
 
