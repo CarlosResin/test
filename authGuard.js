@@ -1,14 +1,14 @@
 // authGuard.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-import { 
-  getAuth, 
-  onAuthStateChanged, 
-  signOut, 
-  setPersistence, 
-  browserSessionPersistence 
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  setPersistence,
+  browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
-// Firebase config
+// --- Firebase config (same as your main config) ---
 const firebaseConfig = {
   apiKey: "AIzaSyBYPG8EEsN_Vn13E0UALEpTbu2T2o9DVDE",
   authDomain: "winthrop-qa-portal.firebaseapp.com",
@@ -18,40 +18,47 @@ const firebaseConfig = {
   appId: "1:440969077718:web:50591760de13c85d29ba77"
 };
 
-// Initialize Firebase
+// --- Initialize Firebase ---
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Set session-based persistence
+// --- Ensure session ends when browser closes ---
 setPersistence(auth, browserSessionPersistence).catch((error) => {
   console.error("Error setting session persistence:", error);
 });
 
-// Protect the page
+// --- Page protection ---
 onAuthStateChanged(auth, (user) => {
-  if (!user) {
+  const isLoginPage = window.location.pathname.endsWith("index.html") || window.location.pathname === "/";
+
+  if (!user && !isLoginPage) {
     alert("⚠️ You must be logged in to access this page!");
     window.location.href = "index.html";
   }
 });
 
-// Logout function
-export const logoutUser = () => {
-  signOut(auth)
-    .then(() => {
-      alert("✅ Logged out successfully!");
-      window.location.href = "index.html";
-    })
-    .catch((error) => {
-      alert("⚠️ Error logging out: " + error.message);
-    });
-};
+// --- Reusable logout function ---
+export async function logoutUser() {
+  try {
+    await signOut(auth);
+    alert("✅ Logged out successfully!");
+    window.location.href = "index.html";
+  } catch (error) {
+    alert("⚠️ Error logging out: " + error.message);
+  }
+}
 
-// Get current logged-in user
-export const getCurrentUser = () => auth.currentUser;
+// --- Add logout button event listener automatically ---
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => logoutUser());
+  }
+});
 
-// Export auth if needed elsewhere
+// --- Export auth so other modules (home.js, checklist.js) can use it ---
 export { auth };
+
 
 
 
