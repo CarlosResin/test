@@ -17,7 +17,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-
 // Signup function
 export const signupUser = async (event) => {
   event.preventDefault();
@@ -33,7 +32,7 @@ export const signupUser = async (event) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Write to Firestore
+    // Add user to Firestore
     await setDoc(doc(db, "users", user.uid), {
       email: user.email,
       role: "normal",
@@ -68,27 +67,31 @@ const lengthReq = document.getElementById("lengthReq");
 const uppercaseReq = document.getElementById("uppercaseReq");
 const numberReq = document.getElementById("numberReq");
 
-passwordInput.addEventListener("input", () => {
-  const value = passwordInput.value;
+const updatePasswordUI = (value) => {
   lengthReq.className = value.length >= 6 ? "valid" : "invalid";
   uppercaseReq.className = /[A-Z]/.test(value) ? "valid" : "invalid";
   numberReq.className = /[0-9]/.test(value) ? "valid" : "invalid";
-});
+};
 
-// Email validation feedback
+passwordInput?.addEventListener("input", () => updatePasswordUI(passwordInput.value));
+if (passwordInput?.value) updatePasswordUI(passwordInput.value);
+
+// Email live validation
 const emailInput = document.getElementById("email");
 const emailFeedback = document.getElementById("emailFeedback");
-emailInput.addEventListener("input", () => {
+
+emailInput?.addEventListener("input", () => {
   const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-  emailFeedback.textContent = emailPattern.test(emailInput.value) ? "✅ Valid email" : "❌ Invalid email";
-  emailFeedback.style.color = emailPattern.test(emailInput.value) ? "#2ecc71" : "#e74c3c";
+  const isValid = emailPattern.test(emailInput.value);
+  emailFeedback.textContent = isValid ? "✅ Valid email" : "❌ Invalid email";
+  emailFeedback.style.color = isValid ? "#2ecc71" : "#e74c3c";
 });
 
-// Collapsible sections + button binding
+// Collapsible sections + button bindings
 document.addEventListener("DOMContentLoaded", () => {
   const headers = document.querySelectorAll("h2");
   headers.forEach(header => {
-    header.addEventListener("click", function() {
+    header.addEventListener("click", function () {
       const section = this.nextElementSibling;
       if (section && section.classList.contains("section")) {
         section.classList.toggle("active");
@@ -96,8 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  document.getElementById("signupBtn").addEventListener("click", signupUser);
-  document.getElementById("loginBtn").addEventListener("click", loginUser);
+  document.getElementById("signupBtn")?.addEventListener("click", signupUser);
+  document.getElementById("loginBtn")?.addEventListener("click", loginUser);
 });
 
 
