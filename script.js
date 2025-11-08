@@ -47,18 +47,6 @@ export const signupUser = async (event) => {
   }
 };
 
-// After creating user in Authentication
-const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-const user = userCredential.user;
-
-// Add user to Firestore with default role
-await setDoc(doc(db, "users", user.uid), {
-  email: user.email,
-  role: "normal",
-  createdAt: new Date()
-});
-
-
 // Login function
 export const loginUser = async (event) => {
   event.preventDefault();
@@ -111,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("signupBtn").addEventListener("click", signupUser);
   document.getElementById("loginBtn").addEventListener("click", loginUser);
 });
+
 
 
 
