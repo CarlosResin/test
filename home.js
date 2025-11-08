@@ -1,13 +1,17 @@
-import { auth, logoutUser, getCurrentUser } from './authGuard.js';
+// home.js
+import { auth, logoutUser } from './authGuard.js';
 
 // Show logged-in user email
 const userEmailEl = document.getElementById('userEmail');
-const user = getCurrentUser();
-if (user) {
-  userEmailEl.textContent = `Logged in as: ${user.email}`;
-} else {
-  userEmailEl.textContent = 'No user logged in';
-}
+
+// Wait for auth state to be ready
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    userEmailEl.textContent = `Logged in as: ${user.email}`;
+  } else {
+    userEmailEl.textContent = 'No user logged in';
+  }
+});
 
 // Open checklist page
 document.getElementById('openChecklistBtn').addEventListener('click', () => {
