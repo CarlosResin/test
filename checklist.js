@@ -1,7 +1,7 @@
 // checklist.js
 import { auth, logoutUser } from './authGuard.js';
 
-// Show logged-in user email
+// --- Show logged-in user email ---
 const userEmailEl = document.getElementById('userEmail');
 
 auth.onAuthStateChanged((user) => {
@@ -12,7 +12,7 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-// Logout button
+// --- Logout functionality ---
 const logoutBtn = document.getElementById('logoutBtn');
 if (logoutBtn) {
   logoutBtn.addEventListener('click', () => {
@@ -20,7 +20,7 @@ if (logoutBtn) {
   });
 }
 
-// Collapsible sections
+// --- Collapsible section logic ---
 document.addEventListener('DOMContentLoaded', () => {
   const headers = document.querySelectorAll('h2');
   headers.forEach(header => {
@@ -31,4 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // --- Checkbox persistence (optional but useful) ---
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+  // Load saved state
+  checkboxes.forEach((checkbox, index) => {
+    const saved = localStorage.getItem(`checkbox-${index}`);
+    if (saved === 'true') checkbox.checked = true;
+
+    // Save state on change
+    checkbox.addEventListener('change', () => {
+      localStorage.setItem(`checkbox-${index}`, checkbox.checked);
+    });
+  });
 });
+
