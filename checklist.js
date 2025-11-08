@@ -1,27 +1,27 @@
 // checklist.js
 import { auth, logoutUser } from './authGuard.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
 // --- Show logged-in user email ---
-const userEmailEl = document.getElementById('userEmail');
-
-auth.onAuthStateChanged((user) => {
-  if (user) {
-    userEmailEl.textContent = `Logged in as: ${user.email}`;
-  } else {
-    userEmailEl.textContent = 'No user logged in';
-  }
-});
-
-// --- Logout functionality ---
-const logoutBtn = document.getElementById('logoutBtn');
-if (logoutBtn) {
-  logoutBtn.addEventListener('click', () => {
-    logoutUser();
-  });
-}
-
-// --- Collapsible section logic ---
 document.addEventListener('DOMContentLoaded', () => {
+  const userEmailEl = document.getElementById('userEmail');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  // Handle user session info
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      userEmailEl.textContent = `Logged in as: ${user.email}`;
+    } else {
+      userEmailEl.textContent = 'No user logged in';
+    }
+  });
+
+  // --- Logout functionality ---
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', logoutUser);
+  }
+
+  // --- Collapsible section logic ---
   const headers = document.querySelectorAll('h2');
   headers.forEach(header => {
     header.addEventListener('click', () => {
@@ -32,18 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Checkbox persistence (optional but useful) ---
+  // --- Checkbox persistence ---
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-  // Load saved state
   checkboxes.forEach((checkbox, index) => {
     const saved = localStorage.getItem(`checkbox-${index}`);
     if (saved === 'true') checkbox.checked = true;
 
-    // Save state on change
     checkbox.addEventListener('change', () => {
       localStorage.setItem(`checkbox-${index}`, checkbox.checked);
     });
   });
 });
+
+
 
