@@ -1,47 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>sofe QA Procedures Checklist</title>
-<link rel="stylesheet" href="style.css">
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const headers = document.querySelectorAll('h2');
-    headers.forEach(header => {
-        header.addEventListener('click', function() {
-            const section = this.nextElementSibling;
-            section.classList.toggle('active');
-        });
-    });
-});
-</script>
+  <meta charset="UTF-8">
+  <title>Sofe QA Procedures Checklist</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- Load protection + logout logic -->
-<script type="module" src="./authGuard.js"></script>
-    
-<h1>Sofe QA Procedures Checklist</h1>
+  <h1>Sofe QA Procedures Checklist</h1>
+  <p id="userEmail">Loading user info...</p>
 
-<h2>QMP: Quality Management Plan</h2>
-<div class="section" id="qmp">
+  <h2>QMP: Quality Management Plan</h2>
+  <div class="section">
     <label class="checkbox-item"><input type="checkbox"> Issued on ACC 4 weeks before works start</label><br>
-    <label class="checkbox-item"><input type="checkbox"> sofe QA Team informed</label>
-</div>
+    <label class="checkbox-item"><input type="checkbox"> Sofe QA Team informed</label>
+  </div>
 
-<h2>ITP: Inspection & Test Plan</h2>
-<div class="section" id="itp">
+  <h2>ITP: Inspection & Test Plan</h2>
+  <div class="section">
     <label class="checkbox-item"><input type="checkbox"> Issued on ACC 2 weeks before works start</label><br>
     <label class="checkbox-item"><input type="checkbox"> Includes FOK (First of a Kind) inspection</label>
-</div>
+  </div>
 
-<h2>TBT: Toolbox Talk</h2>
-<div class="section" id="tbt">
+  <h2>TBT: Toolbox Talk</h2>
+  <div class="section">
     <label class="checkbox-item"><input type="checkbox"> Conducted before FOK works start</label><br>
     <label class="checkbox-item"><input type="checkbox"> Attendance sheet uploaded to ACC</label>
-</div>
+  </div>
 
-<h2>Pre-FOK Requirements</h2>
-<div class="section" id="prefok">
+  <h2>Pre-FOK Requirements</h2>
+  <div class="section">
     <label class="checkbox-item"><input type="checkbox"> FOK description shared on ACC</label><br>
     <label class="checkbox-item"><input type="checkbox"> All DWG drawings approved via ACC</label><br>
     <label class="checkbox-item"><input type="checkbox"> All Technical Submittals approved via ACC</label><br>
@@ -49,25 +36,27 @@ document.addEventListener('DOMContentLoaded', function() {
     <label class="checkbox-item"><input type="checkbox"> Checksheets completed and available on ACC</label><br>
     <label class="checkbox-item"><input type="checkbox"> RFIs closed and attached</label><br>
     <label class="checkbox-item"><input type="checkbox"> Factory/delivery quality issues addressed</label>
-</div>
+  </div>
 
-<h2>FOK: First of a Kind Inspection</h2>
-<div class="section" id="fok">
+  <h2>FOK: First of a Kind Inspection</h2>
+  <div class="section">
     <label class="checkbox-item"><input type="checkbox"> Ready for presentation at agreed time on day works start</label><br>
     <label class="checkbox-item"><input type="checkbox"> Requires Project Managers Attendance</label><br>
     <label class="checkbox-item"><input type="checkbox"> AECOM is only signing off starting works described</label>
-</div>
+  </div>
 
-<h2>Subsequent FOKs</h2>
-<div class="section" id="subfok">
+  <h2>Subsequent FOKs</h2>
+  <div class="section">
     <label class="checkbox-item"><input type="checkbox"> Review of missing items coverage from earlier stage</label><br>
     <label class="checkbox-item"><input type="checkbox"> Follow up email recording completion or next steps</label>
-</div>
-<!-- Logout handled by authGuard.js -->
-<button id="logoutBtn">Logout</button>
+  </div>
+
+  <button id="logoutBtn">Logout</button>
+
+  <!-- JS Modules -->
+  <script type="module" src="./authGuard.js"></script>
+  <script type="module" src="./checklist.js"></script>
 </body>
 </html>
-
-
 
 
