@@ -27,12 +27,15 @@ setPersistence(auth, browserSessionPersistence).catch((error) => {
   console.error("Error setting session persistence:", error);
 });
 
-// --- Page protection ---
+// --- Detect if user is logged in ---
 onAuthStateChanged(auth, (user) => {
-  const isLoginPage = window.location.pathname.endsWith("index.html") || window.location.pathname === "/";
+  // Normalize page name to avoid GitHub Pages path issues
+  const page = window.location.pathname.split("/").pop();
+
+  const isLoginPage = !page || page === "index.html" || page === "";
 
   if (!user && !isLoginPage) {
-    alert("⚠️ You must be logged in to access this page!");
+    console.warn("No user session — redirecting to login page");
     window.location.href = "index.html";
   }
 });
@@ -44,11 +47,12 @@ export async function logoutUser() {
     alert("✅ Logged out successfully!");
     window.location.href = "index.html";
   } catch (error) {
+    console.error("Logout error:", error);
     alert("⚠️ Error logging out: " + error.message);
   }
 }
 
-// --- Add logout button event listener automatically ---
+// --- Auto-bind logout button ---
 document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
@@ -56,10 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// --- Export auth so other modules (home.js, checklist.js) can use it ---
+// --- Export for use in other modules ---
 export { auth };
-
-
-
 
 
